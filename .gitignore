@@ -1,0 +1,10 @@
+### OSX ###
+.DS_Store
+.AppleDouble
+.LSOverride
+
+#Dependecies dir
+node_modules
+
+#Distribution dir
+/dist
