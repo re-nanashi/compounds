@@ -1,4 +1,5 @@
 import "../assets/styles/main.css";
-import { world } from "./application";
+import { Application } from "./application";
 
-window.onload = world;
+const app = new Application();
+window.onload = app.boot();
