@@ -49,6 +49,7 @@ export class Application {
     // Draws the box object to the canvas.
     this.box.dispatch(this.context);
   }
+
   private update(): void {
     this.box.rotate();
     this.box.expand();
