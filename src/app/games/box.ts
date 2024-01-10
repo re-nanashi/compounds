@@ -8,7 +8,7 @@ export class Box implements Entity {
   private boxRotationAngle: number;
 
   private rotationSpeed: number = 1;
-  private expansionSpeed: number = 0.5;
+  private expansionSpeed: number = 10;
 
   private backgroundContext: CanvasRenderingContext2D;
 
@@ -36,7 +36,7 @@ export class Box implements Entity {
     let boxVerticalCenter = this.yPosition + this.boxSideLength / 2;
     // Matrix transformation
     context.translate(boxHorizontalCenter, boxVerticalCenter);
-    context.rotate(this.boxRotationAngle % 360);
+    context.rotate((this.boxRotationAngle * Math.PI) / 180);
     context.translate(-boxHorizontalCenter, -boxVerticalCenter);
 
     // Rotated rectangle
