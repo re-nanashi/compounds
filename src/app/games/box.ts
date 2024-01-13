@@ -3,6 +3,9 @@ import { Entity } from "./entity";
 import { Command } from "./command";
 
 export class Box implements Entity {
+  private backgroundContext: CanvasRenderingContext2D;
+
+  // Box Properties
   private color: string;
   private boxSideLength: number;
   private boxRotationAngle: number;
@@ -10,11 +13,9 @@ export class Box implements Entity {
   private rotationSpeed: number = 1;
   private expansionSpeed: number = 0.5;
 
-  private backgroundContext: CanvasRenderingContext2D;
-
   // Create a box.
-  private xPosition: number;
-  private yPosition: number;
+  private xCoordinate: number;
+  private yCoordinate: number;
 
   constructor(
     boxSideLength: number = 1,
@@ -25,36 +26,36 @@ export class Box implements Entity {
     this.boxRotationAngle = boxRotationAngle;
     this.color = color;
 
-    this.xPosition = Global.CANVAS_WIDTH / 2 - this.boxSideLength / 2;
-    this.yPosition = Global.CANVAS_HEIGHT / 2 - this.boxSideLength / 2;
+    this.xCoordinate = Global.CANVAS_WIDTH / 2 - this.boxSideLength / 2;
+    this.yCoordinate = Global.CANVAS_HEIGHT / 2 - this.boxSideLength / 2;
   }
 
   public dispatch(context: CanvasRenderingContext2D): void {
     this.backgroundContext = context;
 
-    let boxHorizontalCenter = this.xPosition + this.boxSideLength / 2;
-    let boxVerticalCenter = this.yPosition + this.boxSideLength / 2;
+    let boxHorizontalCenter = this.xCoordinate + this.boxSideLength / 2;
+    let boxVerticalCenter = this.yCoordinate + this.boxSideLength / 2;
     // Matrix transformation
-    context.translate(boxHorizontalCenter, boxVerticalCenter);
-    context.rotate(this.boxRotationAngle % 360);
-    context.translate(-boxHorizontalCenter, -boxVerticalCenter);
+    this.backgroundContext.translate(boxHorizontalCenter, boxVerticalCenter);
+    this.backgroundContext.rotate(this.boxRotationAngle % 360);
+    this.backgroundContext.translate(-boxHorizontalCenter, -boxVerticalCenter);
 
     // Rotated rectangle
-    context.fillStyle = this.color;
-    context.fillRect(
-      this.xPosition,
-      this.yPosition,
+    this.backgroundContext.fillStyle = this.color;
+    this.backgroundContext.fillRect(
+      this.xCoordinate,
+      this.yCoordinate,
       this.boxSideLength,
       this.boxSideLength
     );
   }
 
   public setXPosition(xCoordinate: number): void {
-    this.xPosition = xCoordinate;
+    this.xCoordinate = xCoordinate;
   }
 
   public setYPosition(yCoordinate: number): void {
-    this.yPosition = yCoordinate;
+    this.yCoordinate = yCoordinate;
   }
 
   public rotate(): void {
