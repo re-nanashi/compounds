@@ -1,4 +1,4 @@
-import { Box, ResetBoxCommand } from "./games/box";
+import { Grass, ReplantCommand } from "./games/grass";
 import { InputHandler } from "./input-handler";
 import { Command } from "./games/command";
 
@@ -12,7 +12,7 @@ export class Application {
 
   // Games array: {private games: Array<Game>};
   // Only one game for now
-  private box: Box;
+  private grass: Grass;
 
   constructor() {
     this.canvas = <HTMLCanvasElement>document.getElementById("world-canvas");
@@ -23,11 +23,11 @@ export class Application {
     });
 
     // Instantiate box, inputHandler.
-    this.box = new Box();
+    this.grass = new Grass();
     this.inputHandler = new InputHandler();
 
     // Initialize button events.
-    let spaceButtonCommand = new ResetBoxCommand();
+    let spaceButtonCommand = new ReplantCommand();
 
     // Bind button events.
     this.inputHandler.bindSpaceButton(spaceButtonCommand);
@@ -47,18 +47,17 @@ export class Application {
     this.context.fill();
 
     // Draws the box object to the canvas.
-    this.box.dispatch(this.context);
+    this.grass.dispatch(this.context);
   }
 
   private update(): void {
-    this.box.rotate();
-    this.box.expand();
+    this.grass.increaseHeight();
   }
 
   private loop(): void {
     // User keyboard input handling.
     let command: Command = this.inputHandler.handleUserKeyboardInput();
-    if (command) command.execute(this.box);
+    if (command) command.execute(this.grass);
 
     // Render the object's current state.
     this.render();
