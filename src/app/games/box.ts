@@ -36,15 +36,9 @@ export class Box implements Entity {
     let boxHorizontalCenter = this.xCoordinate + this.boxSideLength / 2;
     let boxVerticalCenter = this.yCoordinate + this.boxSideLength / 2;
     // Matrix transformation
-<<<<<<< HEAD
     this.backgroundContext.translate(boxHorizontalCenter, boxVerticalCenter);
     this.backgroundContext.rotate(this.boxRotationAngle % 360);
     this.backgroundContext.translate(-boxHorizontalCenter, -boxVerticalCenter);
-=======
-    context.translate(boxHorizontalCenter, boxVerticalCenter);
-    context.rotate((this.boxRotationAngle * Math.PI) / 180);
-    context.translate(-boxHorizontalCenter, -boxVerticalCenter);
->>>>>>> main
 
     // Rotated rectangle
     this.backgroundContext.fillStyle = this.color;
