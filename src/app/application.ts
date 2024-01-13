@@ -1,6 +1,7 @@
 import { Grass, ReplantCommand } from "./games/grass";
 import { InputHandler } from "./input-handler";
 import { Command } from "./games/command";
+import * as Global from "./contants";
 
 export class Application {
   // Declare canvas, context variables
@@ -40,7 +41,7 @@ export class Application {
 
   private render(): void {
     // Clear previous canvas.
-    this.context.clearRect(0, 0, 1280, 720);
+    this.context.clearRect(0, 0, Global.CANVAS_WIDTH, Global.CANVAS_HEIGHT);
 
     // Render white background.
     this.context.rect(0, 0, 1280, 720);
@@ -52,12 +53,7 @@ export class Application {
   }
 
   private update(): void {
-<<<<<<< HEAD
     this.grass.increaseHeight();
-=======
-    this.box.expand();
-    this.box.rotate();
->>>>>>> main
   }
 
   private loop(): void {
