@@ -8,6 +8,7 @@ export class Application {
   private context: CanvasRenderingContext2D;
 
   // Global object/s
+  private lastTimestampStateUpdated: number = 0;
   private inputHandler: InputHandler;
 
   // Games array: {private games: Array<Game>};
@@ -51,7 +52,12 @@ export class Application {
   }
 
   private update(): void {
+<<<<<<< HEAD
     this.grass.increaseHeight();
+=======
+    this.box.expand();
+    this.box.rotate();
+>>>>>>> main
   }
 
   private loop(): void {
@@ -59,11 +65,19 @@ export class Application {
     let command: Command = this.inputHandler.handleUserKeyboardInput();
     if (command) command.execute(this.grass);
 
-    // Render the object's current state.
+    // Render the object's current state only after a second.
     this.render();
 
-    // Update the object's state.
-    this.update();
+    // Update the object's state only after a second.
+    const ONE_SECOND = 1000; // ms
+    let now = Date.now();
+    if (
+      !this.lastTimestampStateUpdated ||
+      now - this.lastTimestampStateUpdated >= ONE_SECOND
+    ) {
+      this.lastTimestampStateUpdated = now;
+      this.update();
+    }
 
     // Start the first frame request.
     // Keep requesting new frames.
