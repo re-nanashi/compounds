@@ -1,4 +1,5 @@
-import { Grass, ReplantCommand } from "./games/grass";
+// import { Grass, ReplantCommand } from "./games/pokeball";
+import { Pokeball, ReversePokeballRotationCommand } from "./games/pokeball";
 import { InputHandler } from "./input-handler";
 import { Command } from "./games/command";
 import * as Global from "./contants";
@@ -14,7 +15,7 @@ export class Application {
 
   // Games array: {private games: Array<Game>};
   // Only one game for now
-  private grass: Grass;
+  private pokeball: Pokeball;
 
   constructor() {
     this.canvas = <HTMLCanvasElement>document.getElementById("world-canvas");
@@ -25,11 +26,11 @@ export class Application {
     });
 
     // Instantiate box, inputHandler.
-    this.grass = new Grass();
+    this.pokeball = new Pokeball();
     this.inputHandler = new InputHandler();
 
     // Initialize button events.
-    let spaceButtonCommand = new ReplantCommand();
+    let spaceButtonCommand = new ReversePokeballRotationCommand();
 
     // Bind button events.
     this.inputHandler.bindSpaceButton(spaceButtonCommand);
@@ -49,31 +50,31 @@ export class Application {
     this.context.fill();
 
     // Draws the box object to the canvas.
-    this.grass.dispatch(this.context);
+    this.pokeball.dispatch(this.context);
   }
 
   private update(): void {
-    this.grass.increaseHeight();
+    this.pokeball.advance();
   }
 
   private loop(): void {
     // User keyboard input handling.
     let command: Command = this.inputHandler.handleUserKeyboardInput();
-    if (command) command.execute(this.grass);
+    if (command) command.execute(this.pokeball);
 
     // Render the object's current state only after a second.
     this.render();
+    this.update();
 
     // Update the object's state only after a second.
-    const ONE_SECOND = 1000; // ms
-    let now = Date.now();
-    if (
-      !this.lastTimestampStateUpdated ||
-      now - this.lastTimestampStateUpdated >= ONE_SECOND
-    ) {
-      this.lastTimestampStateUpdated = now;
-      this.update();
-    }
+    // const ONE_SECOND = 1000; // ms
+    // let now = Date.now();
+    // if (
+    //   !this.lastTimestampStateUpdated ||
+    //   now - this.lastTimestampStateUpdated >= ONE_SECOND
+    // ) {
+    //   this.lastTimestampStateUpdated = now;
+    // }
 
     // Start the first frame request.
     // Keep requesting new frames.
